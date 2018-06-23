@@ -1,0 +1,10 @@
+data<-"./data/household_power_consumption.txt"
+insert<-read.table(data,header=TRUE,sep=";",stringsAsFactors=FALSE,dec=".")
+target<- insert[insert$Date %in% c("1/2/2007","2/2/2007"),]
+
+#str(target)
+datetime<-strptime(paste(target$Date,target$Time,sep=" "),"%d/%m/%Y %H:%M:%S") 
+gap<-as.numeric(target$Global_active_power)
+png("plot2.png",width=480,height=480)
+plot(datetime,gap,type="l",xlab="time",ylab="Global Active Power (kilowatts)")
+dev.off()

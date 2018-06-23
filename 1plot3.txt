@@ -1,0 +1,17 @@
+power <- read.csv("household_power_consumption.txt",header = TRUE, sep = ";", na.strings = "?", nrows = 2075259, check.names=F, stringsAsFactors=F, comment.char="", quote='\"')
+
+target <- subset(power, Date %in% c("1/2/2007", "2/2/2007"))
+DateTime <- strptime(paste(target$Date,target$Time, sep = " "),"%d/%m/%Y %H:%M:%S")
+target <- cbind(DateTime, target)
+
+collines <- c("black", "red", "blue")
+labels <- c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
+
+png("plot3.png", width = 480, height = 480)
+plot(target$DateTime,target$Sub_metering_1, type="l", col=collines[1], xlab="", ylab="Energy sub metering")
+lines(target$DateTime,target$Sub_metering_2, col=collines[2])
+lines(target$DateTime,target$Sub_metering_3, col=collines[3])
+
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=1, lwd=2.5, col=c("black", "red", "blue"))
+
+dev.off()

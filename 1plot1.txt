@@ -1,0 +1,10 @@
+data<-"./data/household_power_consumption.txt"
+data2<-read.table(data,header=TRUE, sep=";",stringsAsFactors=FALSE,dec=".")
+target<-data2[data2$Date %in% c("1/2/2007","2/2/2007"),]
+
+#str(target)
+
+gap<-as.numeric(target$Global_active_power)
+png("plot1.png",width=480,height=480)
+hist(gap,col="red",xlab="Global Active Power (kilowatts)",main="Plot of Global Active Power")
+dev.off()
